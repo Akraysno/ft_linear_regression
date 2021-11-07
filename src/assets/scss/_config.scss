@@ -1,0 +1,18 @@
+@import "variables.scss";
+@import "global";
+@import "common";
+
+@import '~@angular/material/theming';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import "./akraysno-theme.scss";
+$akraysno-app-primary: mat-palette($akraysno-primary);
+$akraysno-app-accent:  mat-palette($akraysno-accent);
+$akraysno-app-warn:    mat-palette($akraysno-warn);
+$akraysno-app-theme: mat-light-theme($akraysno-app-primary, $akraysno-app-accent, $akraysno-app-warn);
+@include angular-material-theme($akraysno-app-theme);
+
+$custom-typography: mat-typography-config(
+  $font-family: $font-family
+);
+@include angular-material-typography($custom-typography);
