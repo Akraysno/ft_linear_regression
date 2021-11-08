@@ -5,7 +5,7 @@ body{
   margin: 0px;
 }
 * {
-  font-family: $font-family;
+  font-family: $font-family !important;
 }
 *:focus {
   outline:0;
@@ -159,7 +159,7 @@ app-ngx-editor {
   white-space: pre-line;
 }
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: 'Material Icons' !important;
   font-weight: normal;
   font-style: normal;
   font-size: 24px;

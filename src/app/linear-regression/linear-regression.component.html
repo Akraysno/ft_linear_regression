@@ -1,0 +1,20 @@
+<div class="app-linear-regression" [ngClass]="{'light': currentTheme === themes.LIGHT}">
+    <mat-drawer-container class="lr-drawer-container">
+        <mat-drawer #startDrawer class="start-drawer" mode="side" position="start" [opened]="true">
+            <app-configuration></app-configuration>
+            <div class="neon-effet"></div>
+            <div class="neon-center"></div>
+        </mat-drawer>
+
+        <mat-drawer-content>
+            <div class="lr-chart-container"></div>
+            <i class="material-icons menu-icon settings" (click)="settingsDrawer.toggle()">settings</i>
+        </mat-drawer-content>
+
+        <mat-drawer #settingsDrawer class="settings-drawer" mode="over" position="end">
+            <div class="neon-effet"></div>
+            <div class="neon-center"></div>
+            <app-settings></app-settings>
+        </mat-drawer>
+    </mat-drawer-container>
+</div>

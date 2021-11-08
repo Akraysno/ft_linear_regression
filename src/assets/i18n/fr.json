@@ -1,0 +1,10 @@
+{
+    "linearRegression": {
+        "settings": {
+            "title": "Paramètres"
+        },
+        "config": {
+            "title": "Linear Regression"
+        }
+    }
+}
