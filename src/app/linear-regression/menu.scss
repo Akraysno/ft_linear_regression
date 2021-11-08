@@ -1,10 +1,11 @@
 @import '../../assets/scss/variables';
 
 .app-menu-container {
+    padding: 20px 0 0 0;
     .title {
         text-align: center;
     }
-    .option-container {
+    .menu-section {
         &.borderful {
             padding: 10px;
             border: 1px solid rgb(255 255 255 / 48%);
@@ -164,7 +165,7 @@
       color: $primary-color;  
     }
     &.light {
-        .option-container {
+        .menu-section {
             .section-title {
                 &.main-title {
                     background-color: #fafafa;
@@ -176,6 +177,7 @@
                     .icon {
                         &.selected {
                             color: #fafafa;
+                            text-shadow: stroke(3, $light-primary-color);
                         }
                     }
                 }

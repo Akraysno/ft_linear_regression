@@ -1,0 +1,32 @@
+<div class="drag-container" [ngClass]="{'light': !darkMode}">
+    <div class="drag-subcontainer" *ngIf="!value" (click)="inputCurrentFiles.click()" >
+        <div class="upload-img" #dragAndDropContainer>
+            <div class="upload-file" *ngIf="!imageIsLoading">
+                <i class="material-icons">upload_file</i>
+                <div class="text-container">{{ 'components.dragAndDrop.addFile' | translate }}</div>
+            </div>
+            <mat-spinner [diameter]="20" *ngIf="imageIsLoading"></mat-spinner>
+        </div>
+        <input
+            hidden="true"
+            type="file"
+            [accept]="accept"
+            #inputCurrentFiles
+            (change)="onFilesChange(inputCurrentFiles.files)"
+        />
+    </div>
+    <div class="file-infos" *ngIf="value">
+        <div class="file-icon">
+            <i class="material-icons">description</i>
+        </div>
+        <div class="vertical-separator"></div>
+        <div class="infos">
+            <div class="subinfos-container">
+                <div class="filename"> {{value.name}} </div>
+                <div class="separator"></div>
+                <div class="filesize"> {{value.size | size | async}} </div>
+            </div>
+            <button mat-stroked-button (click)="removeFile()">{{ 'global.delete' | translate }}</button>
+        </div>
+    </div>
+</div>

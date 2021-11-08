@@ -1,6 +1,6 @@
 <div class="app-settings-container app-menu-container" *ngIf="settings" [ngClass]="{'light': currentTheme === themes.LIGHT}">
     <h2 class="title">{{ 'linearRegression.settings.title' | translate }}</h2>
-    <div class="option-container">
+    <section class="menu-section">
         <div class="separator"></div>
         <div class="section-group p-5">
             <div class="icons-container">
@@ -13,6 +13,5 @@
                 <div class="icon" [ngClass]="{'selected': currentTheme === themes.DARK}" (click)="updateTheme(themes.DARK)"><i class="material-icons">mode_night</i></div>
             </div>
         </div>
-    </div>
-
+    </section>
 </div>

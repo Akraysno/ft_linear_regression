@@ -1,10 +1,28 @@
 {
+    "global": {
+        "unit": {
+            "byte": "B"
+        },
+        "delete": "Delete",
+        "validate": "Validate",
+        "cancel": "Cancel"
+    },
+    "components": {
+        "dragAndDrop": {
+            "addFile": "Add file",
+            "deleteTitle": "Delete the file",
+            "deleteMessage": "Are you sure you want to delete the file?",
+            "deleteWarningMessage": "Deleting the file will delete the linked data."
+        }
+    },
     "linearRegression": {
         "settings": {
             "title": "Settings"
         },
         "config": {
-            "title": "Linear Regression"
+            "title": "Linear Regression",
+            "fileHeaderMissing": "File need 2 columns with name",
+            "hasErrors": "Lines circled in red have errors and will be ignored in the result."
         }
     }
 }

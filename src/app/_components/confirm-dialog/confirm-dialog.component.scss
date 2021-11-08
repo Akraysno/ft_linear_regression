@@ -1,0 +1,36 @@
+@import "src/assets/scss/variables.scss";
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: #484848;
+  button {
+    width: 45%;
+    white-space: normal;
+    line-height: initial;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: $primary-color;
+  }
+}
+.title {
+  width: 100%;
+  text-align: center;
+}
+.danger {
+  color: $danger-color;
+  white-space: pre-line;
+}
+.message {
+  width: 100%;
+}
+
+.html-content{
+  padding: 30px;
+  font-size: 19px;
+  text-align: center;
+  a{
+    outline: none;
+  }
+}

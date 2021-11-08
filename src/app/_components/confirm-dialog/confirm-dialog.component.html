@@ -1,0 +1,7 @@
+<h1 mat-dialog-title class="title">{{data.title}}</h1>
+<p *ngIf="data.message" class="message">{{data.message}}</p>
+<p *ngIf="data.warningMessage" class="danger">{{data.warningMessage}}</p>
+<div mat-dialog-actions class="button-group">
+  <button mat-button (click)="close(false)">{{ 'global.cancel' | translate }}</button>
+  <button mat-button (click)="close(true)">{{ 'global.validate' | translate }}</button>
+</div>

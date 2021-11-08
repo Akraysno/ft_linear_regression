@@ -1,1 +1,121 @@
 @import '../../../assets/scss/variables';
+
+.app-configuration-container {
+    .import-file {
+        width: 97%;
+        margin-bottom: 20px;
+        .error-message {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .data-table {
+            border-collapse: collapse;
+            td, th {
+                padding: 0 5%;
+            }
+            .error {
+                border: 1px solid red;
+            }
+            input {
+                background-color: #4c4c4c;
+                border: 1px solid transparent;
+                color: white;
+                width: 100%;
+                letter-spacing: 1px;
+                &.center { text-align: center; }
+                &.right { text-align: right; }
+                &.left { text-align: left; }
+                &:focus {
+                    border-color: $primary-color;
+                    caret-color: $primary-color;
+                }
+            }
+            .delete-icon {
+                cursor: pointer;
+                color: $primary-color;
+                margin-top: 5px;
+                font-size: 13px;
+                line-height: 6px;
+            }
+        }
+        .add-row-container {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            .add-row {
+                color: $primary-color;
+                cursor: pointer;
+            }
+        }
+    }
+    .button-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: sticky;
+        bottom: 0;
+        background-color: #303030;
+        border-top: 1px solid $primary-color;
+        button {
+            background-color: #484848;
+            color: $primary-color;
+            width: 70%;
+            border: 1px solid $primary-color;
+        }
+    }
+    .scroll-button {
+        position: fixed;
+        left: 280px;
+        border-radius: 10px;
+        background-color: #303030;
+        cursor: pointer;
+        z-index: 1000;
+        &.top {
+            top: 20px;
+        }
+        &.bottom {
+            bottom: 20px;
+        }
+    }
+    &.light {
+        .scroll-button {
+            background-color: #fafafa;
+        }
+        .import-file {
+            .data-table {
+                input {
+                    background-color: #cfcfcf;
+                    color: black;
+                    &:focus {
+                        border-color: $light-primary-color;
+                        caret-color: initial;
+                    }
+                }
+                .delete-icon {
+                    color: $light-primary-color;
+                }
+            }
+            .add-row-container {
+                .add-row {
+                    color: $light-primary-color;
+                }
+            }
+        }
+        .button-container {
+            background-color: white;
+            border-top: 1px solid $light-primary-color;
+            button {
+                background-color: white;
+                color: $primary-color;
+                border: 1px solid $primary-color;
+            }
+        }
+        .scroll-button {
+            background-color: white;
+            border-top: 1px solid $light-primary-color;
+            color: $light-primary-color;
+        }
+    }
+}

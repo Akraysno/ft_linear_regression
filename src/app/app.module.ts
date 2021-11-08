@@ -7,16 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinearRegressionComponent } from './linear-regression/linear-regression.component';
 import { SettingsComponent } from './linear-regression/settings/settings.component';
 import { MaterialModule } from './material.module';
-import { SnackbarService } from './_services/snackbar.service';
-import { ErrorsService } from './_services/errors.service';
-import { TranslateService } from './_services/translate.service';
-import { ThemesService } from './_services/themes.service';
 import { ButtonComponent } from './_components/button/button.component';
 import { SnackbarComponent } from './_components/snackbar/snackbar.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ConfigurationComponent } from './linear-regression/configuration/configuration.component';
+import { DragAndDropComponent } from './_components/drag-and-drop/drag-and-drop.component';
+import { SizePipe } from './_pipes/size.pipe';
+import { FormsModule } from '@angular/forms';
+import { ConfirmDialogComponent } from './_components/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,9 @@ import { ConfigurationComponent } from './linear-regression/configuration/config
     ButtonComponent,
     SnackbarComponent,
     ConfigurationComponent,
+    DragAndDropComponent,
+    SizePipe,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { ConfigurationComponent } from './linear-regression/configuration/config
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    FormsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
