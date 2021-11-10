@@ -29,6 +29,6 @@
         </ng-container>
     </section>
     <section class="button-container">
-        <button mat-stroked-button (click)="validate()"> {{ 'global.validate' | translate }} </button>
+        <button mat-stroked-button (click)="validate()" [disabled]="dataHeader?.isValid() === false"> {{ 'global.validate' | translate }} </button>
     </section>
 </div>

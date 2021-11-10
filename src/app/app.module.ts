@@ -17,6 +17,7 @@ import { DragAndDropComponent } from './_components/drag-and-drop/drag-and-drop.
 import { SizePipe } from './_pipes/size.pipe';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from './_components/confirm-dialog/confirm-dialog.component';
+import { ChartComponent } from './linear-regression/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ConfirmDialogComponent } from './_components/confirm-dialog/confirm-dia
     DragAndDropComponent,
     SizePipe,
     ConfirmDialogComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,

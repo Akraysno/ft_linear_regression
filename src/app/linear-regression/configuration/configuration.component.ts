@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ThemesService, DEFAULT_THEME, Themes } from 'src/app/_services/themes.service';
 import { Subscription } from 'rxjs';
-import { LinearRegressionService } from '../linear-regression.service';
 import { Config } from 'src/app/_classes/config.class';
 import * as XLSX from 'xlsx'
 import { ErrorsService } from 'src/app/_services/errors.service';
@@ -19,7 +18,6 @@ import { TranslateService } from 'src/app/_services/translate.service';
 export class ConfigurationComponent implements OnInit {
   @Output() onConfigChange: EventEmitter<Config> = new EventEmitter()
   @ViewChild('configContainer') configContainer!: ElementRef
-  config!: Config
   currentTheme: Themes = DEFAULT_THEME
   dataHeader!: RowHeaderData | undefined
   dataList: RowData[] = []
@@ -34,15 +32,12 @@ export class ConfigurationComponent implements OnInit {
   canScrollBottom: boolean = false
 
   constructor(
-    private linearRegressionService: LinearRegressionService,
     private themesService: ThemesService,
     private errorsService: ErrorsService,
     private translateService: TranslateService,
   ) { }
 
   ngOnInit(): void {
-    this.config = new Config()
-    this.onConfigChange.emit(this.config)
     this.theme$ = this.themesService.theme.subscribe(theme => this.currentTheme = theme)
   }
 
@@ -108,16 +103,12 @@ export class ConfigurationComponent implements OnInit {
       this.hasErrors = false
       this.dataHeader = undefined
       this.dataList = []
+      this.onConfigChange.emit()
     }
   }
 
   checkErrors() {
     this.hasErrors = !!this.dataList.find(r => r.isValid() === false)
-  }
-
-  onUpdate() {
-    this.onConfigChange.emit(this.config)
-    this.linearRegressionService.config.next(this.config)
   }
 
   addRow() {
@@ -136,7 +127,13 @@ export class ConfigurationComponent implements OnInit {
   }
 
   validate() {
-    let filteredData = this.dataList.filter(d => d.isValid())
+    if (this.dataHeader && this.dataHeader.isValid() === true) {
+      let filteredData = this.dataList.filter(d => d.isValid())
+      this.onConfigChange.emit({
+        header: [this.dataHeader.data1, this.dataHeader.data2],
+        datas: filteredData.map(v => [v.data1 as number, v.data2 as number])
+      })
+    }
   }
 
   ngOnDestroy() {
