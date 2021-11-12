@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ThemesService, DEFAULT_THEME, Themes } from 'src/app/_services/themes.service';
 import { Subscription } from 'rxjs';
-import { Config } from 'src/app/_classes/config.class';
+import { Config, LRDatas, LRHeader } from 'src/app/_classes/config.class';
 import * as XLSX from 'xlsx'
 import { ErrorsService } from 'src/app/_services/errors.service';
 import { TranslateService } from 'src/app/_services/translate.service';
@@ -85,6 +85,7 @@ export class ConfigurationComponent implements OnInit {
           if (headers.length >= 2) {
             dataHeader = new RowHeaderData(headers[0], headers[1])
             for (let line of csv) {
+              if (!line || line.length === 0) continue
               let row = line.split(',')
               let data1 = row.length >= 1 ? row[0] : undefined
               let data2 = row.length >= 2 ? row[1] : undefined
@@ -124,14 +125,15 @@ export class ConfigurationComponent implements OnInit {
       this.deletingRow = -1
       this.dataList.splice(index, 1)
     }
+    this.checkErrors()
   }
 
   validate() {
     if (this.dataHeader && this.dataHeader.isValid() === true) {
       let filteredData = this.dataList.filter(d => d.isValid())
       this.onConfigChange.emit({
-        header: [this.dataHeader.data1, this.dataHeader.data2],
-        datas: filteredData.map(v => [v.data1 as number, v.data2 as number])
+        header: new LRHeader(this.dataHeader.data1, this.dataHeader.data2),
+        datas: filteredData.map(v => new LRDatas(v.data1 as number, v.data2 as number)),
       })
     }
   }
@@ -155,7 +157,7 @@ class RowHeaderData {
   }
 
   isValid() {
-    return  !!this.data1 && !!this.data2
+    return !!this.data1 && !!this.data2
   }
 }
 class RowData {
@@ -168,8 +170,8 @@ class RowData {
   }
 
   isValid() {
-    let data1Error = (typeof(this.data1) === 'string' && String(this.data1).length === 0) || this.data1 === undefined || isNaN(+this.data1)
-    let data2Error = (typeof(this.data2) === 'string' && String(this.data2).length === 0) || this.data2 === undefined || isNaN(+this.data2)
+    let data1Error = (typeof (this.data1) === 'string' && String(this.data1).length === 0) || this.data1 === undefined || isNaN(+this.data1)
+    let data2Error = (typeof (this.data2) === 'string' && String(this.data2).length === 0) || this.data2 === undefined || isNaN(+this.data2)
     return !data1Error && !data2Error
   }
 }

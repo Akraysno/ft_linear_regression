@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BarController, BarElement, CategoryScale, Chart, ChartConfiguration, ChartData, ChartItem, ChartOptions, LinearScale, LineController, LineElement, PointElement, ScatterController, Tooltip, TooltipItem } from 'chart.js';
-import { Config } from 'src/app/_classes/config.class';
+import { Config, LRDatas } from 'src/app/_classes/config.class';
 
 Chart.register(CategoryScale, LinearScale, BarController, BarElement, LineController, LineElement, ScatterController, PointElement, Tooltip);
 Chart.defaults.color = "#90e5ff";
@@ -36,25 +36,17 @@ export class ChartComponent implements OnInit {
       return
     }
     this.config = config
-    let chartDatas: ChartData = {
-      datasets: [{
-        data: config.datas.map((v: number[], i: number) => {
-          return {
-            x: v[0],
-            y: v[1]
-          }
-        }),
-        pointStyle: 'circle',
-        backgroundColor: "#90e5ff",
-        pointBorderColor: "#90e5ff",
-        pointBorderWidth: 1,
-      }],
-    }
+    let chartDatas = this.createDatasets()
     this.createChart(chartDatas)
+  }
+  @Input('thetas') set setThetas(thetas: [number, number]) {
+    this.thetas = thetas
+    this.refreshHypothesis()
   }
   config!: Config
   datas!: ChartData
   chart!: Chart
+  thetas: [number, number] = [0, 0]
 
   constructor() { }
 
@@ -66,6 +58,55 @@ export class ChartComponent implements OnInit {
 
   ngAfterViewInit(): void { }
 
+  createDatasets(): ChartData {
+    let linemin = Math.min(...this.config.datas.map(v => v.x))
+    let linemax = Math.max(...this.config.datas.map(v => v.x))
+    return {
+      datasets: [{
+        type: 'scatter',
+        data: this.config.datas.map((v: LRDatas, i: number) => {
+          return {
+            x: v.x,
+            y: v.y,
+          }
+        }),
+        pointStyle: 'circle',
+        backgroundColor: "#90e5ff",
+        pointBorderColor: "#90e5ff",
+        pointBorderWidth: 1,
+      }, {
+        type: 'line',
+        data: [{
+          x: linemin,
+          y: this.thetas[0]
+        }, {
+          x: linemax,
+          y: this.thetas[1]
+        }],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+      }],
+    }
+  }
+
+  refreshHypothesis() {
+    if (this.config && this.chart) {
+      let linemin = Math.min(...this.config.datas.map(v => v.x))
+      let linemax = Math.max(...this.config.datas.map(v => v.x))
+      this.thetas = this.thetas || [0, 0]
+      if (this.chart) {
+        this.chart.data.datasets[1].data = [{
+          x: linemin,
+          y: this.thetas[0]
+        }, {
+          x: linemax,
+          y: this.thetas[1] * linemax + this.thetas[0]
+        }]
+        this.chart.update()
+      }
+    }
+  }
+
   private createChart(chartData: ChartData): void {
     if (this.chart) {
       this.chart.destroy();
@@ -76,14 +117,14 @@ export class ChartComponent implements OnInit {
     }
 
     const chartConfiguration: ChartConfiguration = {
-      type: 'scatter',//this.chartType,
+      type: 'scatter',
       data: chartData,
       options: {
         color: '#909090',
         scales: {
           x: {
             title: {
-              text: this.config.header[0],
+              text: this.config.header.x,
               display: true,
               color: '#FFF',
               font: {
@@ -97,7 +138,7 @@ export class ChartComponent implements OnInit {
           },
           y: {
             title: {
-              text: this.config.header[1],
+              text: this.config.header.y,
               display: true,
               color: '#FFF',
               font: {
@@ -122,17 +163,16 @@ export class ChartComponent implements OnInit {
               },
               label: (item: TooltipItem<any>) => {
                 let coords: any = item.raw
-                return `${this.config.header[0]} : ${Number(coords.x).toLocaleString()}`;
+                return `${this.config.header.x} : ${Number(coords.x).toLocaleString()}`;
               },
               afterLabel: (item: TooltipItem<any>) => {
                 let coords: any = item.raw
-                return `${this.config.header[1]} : ${Number(coords.y).toLocaleString()}`;
+                return `${this.config.header.y} : ${Number(coords.y).toLocaleString()}`;
               },
             }
           }
         }
-      },//this.chartOptions,
-
+      },
     };
 
     this.chart = new Chart(this.ctx, chartConfiguration);
