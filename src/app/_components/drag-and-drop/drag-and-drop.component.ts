@@ -12,6 +12,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class DragAndDropComponent implements OnInit {
   @HostBinding('attr.id') externalId: string | null = '';
   @Input() accept: string = ''
+  @Input() disableDelete: boolean = false
   @Input('value') _value: File | null = null
   @Input() set id(value: string | null) {
     this._ID = value;

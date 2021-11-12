@@ -47,11 +47,17 @@ export class ChartComponent implements OnInit {
       if (this.chart) {
         this.chart.destroy();
       }
-      return
+    } else {
+      let configExists = !!this.config
+      this.config = config
+      if (configExists && this.chart) {
+        this.refreshScatter()
+      } else {
+        this.config = config
+        let chartDatas = this.createDatasets()
+        this.createChart(chartDatas)
+      }
     }
-    this.config = config
-    let chartDatas = this.createDatasets()
-    this.createChart(chartDatas)
   }
   @Input('thetas') set setThetas(thetas: [number, number]) {
     this.thetas = thetas
@@ -100,6 +106,20 @@ export class ChartComponent implements OnInit {
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)'
       }],
+    }
+  }
+
+  refreshScatter() {
+    if (this.config && this.chart) {
+      if (this.chart) {
+        this.chart.data.datasets[0].data = this.config.datas.map((v: LRDatas, i: number) => {
+          return {
+            x: v.x,
+            y: v.y,
+          }
+        })
+        this.chart.update()
+      }
     }
   }
 

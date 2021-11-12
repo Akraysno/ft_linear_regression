@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Config } from '../_classes/config.class';
 import { Trainer } from '../_classes/trainer.class';
@@ -15,6 +15,7 @@ export class LinearRegressionComponent implements OnInit {
   thetas: [number, number] = [0, 0]
   currentLanguage: Languages = DEFAULT_LANGUAGE
   languages = Languages
+  isTraining: boolean = false
 
   language$!: Subscription | null
 
@@ -31,17 +32,13 @@ export class LinearRegressionComponent implements OnInit {
   }
 
   onConfigChange(config: Config) {
+    this.thetas = [0, 0]
     this.config = config
-    if (this.config) {
-      this.train()
-    } else {
-      this.thetas = [0, 0]
-    }
   }
 
   train() {
+    this.isTraining = true
     let thetas: [number, number] = [0, 0]
-    let isTraining = true
     let interval = 100
     let costs = []
     let learningRate = 0.5
@@ -72,7 +69,8 @@ export class LinearRegressionComponent implements OnInit {
       if (iteration.current < 200) {
         setTimeout(() => training(), interval)
       } else {
-        isTraining = false;
+        this.thetas = thetas
+        this.isTraining = false;
       }
     }
 

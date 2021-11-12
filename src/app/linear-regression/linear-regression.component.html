@@ -1,7 +1,9 @@
 <div class="app-linear-regression">
-    <div class="lr-drawer-container">
+    <div class="lr-container">
         <div class="side-container">
-            <app-configuration (onConfigChange)="onConfigChange($event)"></app-configuration>
+            <div class="config-container">
+                <app-configuration (onConfigChange)="onConfigChange($event)" (train)="train()" [loading]="isTraining"></app-configuration>
+            </div>
             <div class="neon-effet"></div>
             <div class="neon-center"></div>
         </div>
@@ -9,8 +11,9 @@
             <div class="icon" [ngClass]="{'selected': currentLanguage === languages.fr}" (click)="updateLanguage(languages.fr)">🇫🇷</div>
             <div class="icon" [ngClass]="{'selected': currentLanguage === languages.en}" (click)="updateLanguage(languages.en)">🇬🇧</div>
         </div>
-        <div class="lr-chart-container">
+        <div class="lr-content-container">
             <app-chart [config]="config" [thetas]="thetas"></app-chart>
+            <div class="no-chart" *ngIf="!config"><p>{{ 'linearRegression.noChart' | translate }}</p></div>
         </div>
     </div>
 </div>

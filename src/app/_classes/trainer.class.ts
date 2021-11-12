@@ -31,4 +31,14 @@ export class Trainer {
         return this.thetas[0] + this.thetas[1] * km;
     }
 
+    public cost() {
+        return this.squaredError() / (2 * this.M);
+    }
+
+    public squaredError() {
+        return this.data.reduce(
+            (sum, d) => sum + (this.hypothesis(d.x) - d.y) ** 2,
+            0,
+        );
+    }
 }

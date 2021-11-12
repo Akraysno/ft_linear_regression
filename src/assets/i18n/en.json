@@ -22,7 +22,9 @@
         "config": {
             "title": "Linear Regression",
             "fileHeaderMissing": "File need 2 columns with name",
-            "hasErrors": "Lines circled in red have errors and will be ignored in the result."
-        }
+            "hasErrors": "Lines circled in red have errors and will be ignored in the result.",
+            "train": "Train"
+        },
+        "noChart": "The graph will arrive as soon as the data is available!"
     }
 }

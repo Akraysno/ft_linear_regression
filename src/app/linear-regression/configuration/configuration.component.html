@@ -6,18 +6,19 @@
         <app-drag-and-drop
             accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             (onChange)="fileChange($event)"
+            [disableDelete]="loading"
         ></app-drag-and-drop>
         <ng-container *ngIf="dataHeader && dataList.length">
             <div class="separator"></div>
             <div *ngIf="hasErrors" class="error-message">{{ 'linearRegression.config.hasErrors' | translate }}</div>
             <table class="data-table">
                 <tr [ngClass]="{'error': dataHeader.isValid() === false}">
-                    <th><input matInput class="center" (keyup)="checkErrors()" (change)="checkErrors()" [(ngModel)]="dataHeader.data1"></th>
-                    <th><input matInput class="center" (keyup)="checkErrors()" (change)="checkErrors()" [(ngModel)]="dataHeader.data2"></th>
+                    <th><input matInput class="center" [disabled]="loading" (keyup)="valueUpdate()" (change)="valueUpdate()" [(ngModel)]="dataHeader.data1"></th>
+                    <th><input matInput class="center" [disabled]="loading" (keyup)="valueUpdate()" (change)="valueUpdate()" [(ngModel)]="dataHeader.data2"></th>
                 </tr>
                 <tr *ngFor="let elem of dataList; let i = index" [ngClass]="{'error': elem.isValid() === false}">
-                    <td><input matInput class="right" (keyup)="checkErrors()" (change)="checkErrors()" [(ngModel)]="elem.data1"></td>
-                    <td><input matInput class="right" (keyup)="checkErrors()" (change)="checkErrors()" [(ngModel)]="elem.data2"></td>
+                    <td><input matInput class="right" [disabled]="loading" (keyup)="valueUpdate()" (change)="valueUpdate()" [(ngModel)]="elem.data1"></td>
+                    <td><input matInput class="right" [disabled]="loading" (keyup)="valueUpdate()" (change)="valueUpdate()" [(ngModel)]="elem.data2"></td>
                     <i class="material-icons delete-icon" *ngIf="deletingRow !== i" (click)="deleteRow(i)">clear</i>
                     <i class="material-icons delete-icon" *ngIf="deletingRow === i" (click)="confirmDeleteRow(i)">check</i>
                 </tr>
@@ -28,6 +29,6 @@
         </ng-container>
     </section>
     <section class="button-container">
-        <button mat-stroked-button (click)="validate()" [disabled]="dataHeader?.isValid() === false"> {{ 'global.validate' | translate }} </button>
+        <app-button (onClick)="onTrainClicked()" [disabled]="dataHeader?.isValid() === false" [loading]="loading" label="{{ 'linearRegression.config.train' | translate }}"></app-button>
     </section>
 </div>

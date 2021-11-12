@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Config, LRDatas, LRHeader } from 'src/app/_classes/config.class';
 import * as XLSX from 'xlsx'
 import { ErrorsService } from 'src/app/_services/errors.service';
@@ -14,12 +14,15 @@ import { TranslateService } from 'src/app/_services/translate.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class ConfigurationComponent implements OnInit {
+  @Input() loading: boolean = false
+  @Output() train: EventEmitter<any> = new EventEmitter()
   @Output() onConfigChange: EventEmitter<Config> = new EventEmitter()
   @ViewChild('configContainer') configContainer!: ElementRef
   dataHeader!: RowHeaderData | undefined
   dataList: RowData[] = []
   hasErrors: boolean = false
   deletingRow: number = -1
+  lastDatas: string = ''
 
   canScrollTop: boolean = false
   canScrollBottom: boolean = false
@@ -84,7 +87,8 @@ export class ConfigurationComponent implements OnInit {
             }
             self.dataHeader = dataHeader
             self.dataList = datas
-            self.checkErrors()
+            self.valueUpdate()
+            setTimeout(() => self.refreshScrollButtons())
           } else {
             self.errorsService.displayError(self.translateService.getTranslationForKey('linearRegression.configuration.fileHeaderMissing'))
           }
@@ -118,13 +122,26 @@ export class ConfigurationComponent implements OnInit {
     this.checkErrors()
   }
 
+  onTrainClicked() {
+    this.train.emit()
+  }
+
+  valueUpdate() {
+    this.checkErrors()
+    this.validate()
+  }
+
   validate() {
     if (this.dataHeader && this.dataHeader.isValid() === true) {
       let filteredData = this.dataList.filter(d => d.isValid())
-      this.onConfigChange.emit({
-        header: new LRHeader(this.dataHeader.data1, this.dataHeader.data2),
-        datas: filteredData.map(v => new LRDatas(v.data1 as number, v.data2 as number)),
-      })
+      let filteredDataStr = JSON.stringify(filteredData)
+      if (this.lastDatas !== filteredDataStr) {
+        this.lastDatas = filteredDataStr
+        this.onConfigChange.emit({
+          header: new LRHeader(this.dataHeader.data1, this.dataHeader.data2),
+          datas: filteredData.map(v => new LRDatas(v.data1 as number, v.data2 as number)),
+        })
+      }
     }
   }
 

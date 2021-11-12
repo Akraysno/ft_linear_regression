@@ -26,7 +26,7 @@
                 <div class="separator"></div>
                 <div class="filesize"> {{value.size | size | async}} </div>
             </div>
-            <button mat-stroked-button (click)="removeFile()">{{ 'global.delete' | translate }}</button>
+            <button mat-stroked-button (click)="removeFile()" [disabled]="disableDelete">{{ 'global.delete' | translate }}</button>
         </div>
     </div>
 </div>
