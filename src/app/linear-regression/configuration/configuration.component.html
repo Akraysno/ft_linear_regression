@@ -1,10 +1,9 @@
-<div #configContainer class="app-configuration-container app-menu-container" [ngClass]="{'light': currentTheme === themes.LIGHT}">
+<div #configContainer class="app-configuration-container app-menu-container">
     <button mat-strocked-button class="scroll-button top" (click)="scrollMenu(-300)" *ngIf="canScrollTop"><i class="material-icons">arrow_upward</i></button>
     <button mat-strocked-button class="scroll-button bottom" (click)="scrollMenu(300)" *ngIf="canScrollBottom"><i class="material-icons">arrow_downward</i></button>
     <h2 class="title">{{ 'linearRegression.config.title' | translate }}</h2>
     <section class="import-file menu-section">
         <app-drag-and-drop
-            [darkMode]="currentTheme === themes.DARK"
             accept=".csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             (onChange)="fileChange($event)"
         ></app-drag-and-drop>

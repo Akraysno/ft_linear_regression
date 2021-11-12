@@ -12,14 +12,33 @@
         width: 100%;
         background-color: #303030;
         color: #fafafa;
-        .settings-drawer,
-        .start-drawer {
+        display: flex;
+        flex-direction: row;
+        .language-container {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .icon {
+                cursor: pointer;
+                font-size: 30px;
+                margin-left: 15px;
+                &.selected {
+                    color: #303030;
+                    text-shadow: stroke(3, $primary-color);
+                }
+            }
+        }
+        .side-container {
             width: 350px;
             max-width: 350px;
             background-color: #303030;
             color: #fafafa;
             padding: 0 20px;
             overflow: visible;
+            position: relative;
             .neon-effet {
                 background: white;
                 width: 1px;
@@ -34,43 +53,10 @@
                 position: absolute;
                 height: 100%;
                 top: 0;
+                right: 0;
                 z-index: 2;
                 
             }
-            &.settings-drawer {
-                .neon-center,
-                .neon-effet {
-                    left: 0;
-                }
-            }
-            &.start-drawer {
-                .neon-center,
-                .neon-effet {
-                    right: 0;
-                }
-            }
-        }
-    }
-    .menu-icon {
-        position: absolute;
-        top: 20px;
-        color: #fafafa;
-        font-size: 40px;
-        cursor: pointer;
-        z-index: 1;
-        &.settings {
-            right: 20px;
-        }
-        &.solve {
-            top: 80px;
-            left: 20px;
-        }
-        &.shuffle {
-            left: 20px;
-        }
-        &.selected {
-            text-shadow: stroke(5, $primary-color);
-            color: #303030;
         }
     }
     .lr-chart-container {
@@ -79,19 +65,5 @@
         padding: 50px;
         position: relative;
         overflow: hidden;
-    }
-    &.light {
-        .lr-drawer-container {
-            background-color: #fafafa;
-            color: #303030;
-            .settings-drawer,
-            .start-drawer {
-                background-color: #fafafa;
-                color: #303030;
-            }
-        }
-        .menu-icon {
-            color: #303030;
-        }
     }
 }

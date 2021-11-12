@@ -10,7 +10,6 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   styleUrls: ['./drag-and-drop.component.scss'],
 })
 export class DragAndDropComponent implements OnInit {
-  @Input() darkMode: boolean = false
   @HostBinding('attr.id') externalId: string | null = '';
   @Input() accept: string = ''
   @Input('value') _value: File | null = null
@@ -74,7 +73,6 @@ export class DragAndDropComponent implements OnInit {
     let dialog = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
-        darkMode: this.darkMode,
         title: this.translateService.getTranslationForKey('components.dragAndDrop.deleteTitle'),
         message: this.translateService.getTranslationForKey('components.dragAndDrop.deleteMessage'),
         warningMessage: this.translateService.getTranslationForKey('components.dragAndDrop.deleteWarningMessage'),

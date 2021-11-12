@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LinearRegressionComponent } from './linear-regression/linear-regression.component';
-import { SettingsComponent } from './linear-regression/settings/settings.component';
 import { MaterialModule } from './material.module';
 import { ButtonComponent } from './_components/button/button.component';
 import { SnackbarComponent } from './_components/snackbar/snackbar.component';
@@ -23,7 +22,6 @@ import { ChartComponent } from './linear-regression/chart/chart.component';
   declarations: [
     AppComponent,
     LinearRegressionComponent,
-    SettingsComponent,
     ButtonComponent,
     SnackbarComponent,
     ConfigurationComponent,

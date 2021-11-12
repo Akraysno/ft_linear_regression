@@ -1,6 +1,4 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ThemesService, DEFAULT_THEME, Themes } from 'src/app/_services/themes.service';
-import { Subscription } from 'rxjs';
 import { Config, LRDatas, LRHeader } from 'src/app/_classes/config.class';
 import * as XLSX from 'xlsx'
 import { ErrorsService } from 'src/app/_services/errors.service';
@@ -18,28 +16,20 @@ import { TranslateService } from 'src/app/_services/translate.service';
 export class ConfigurationComponent implements OnInit {
   @Output() onConfigChange: EventEmitter<Config> = new EventEmitter()
   @ViewChild('configContainer') configContainer!: ElementRef
-  currentTheme: Themes = DEFAULT_THEME
   dataHeader!: RowHeaderData | undefined
   dataList: RowData[] = []
   hasErrors: boolean = false
   deletingRow: number = -1
 
-  themes = Themes
-
-  theme$!: Subscription | null
-
   canScrollTop: boolean = false
   canScrollBottom: boolean = false
 
   constructor(
-    private themesService: ThemesService,
     private errorsService: ErrorsService,
     private translateService: TranslateService,
   ) { }
 
-  ngOnInit(): void {
-    this.theme$ = this.themesService.theme.subscribe(theme => this.currentTheme = theme)
-  }
+  ngOnInit(): void { }
 
   refreshScrollButtons() {
     if (this.configContainer && this.configContainer.nativeElement) {
@@ -135,13 +125,6 @@ export class ConfigurationComponent implements OnInit {
         header: new LRHeader(this.dataHeader.data1, this.dataHeader.data2),
         datas: filteredData.map(v => new LRDatas(v.data1 as number, v.data2 as number)),
       })
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.theme$) {
-      this.theme$.unsubscribe()
-      this.theme$ = null
     }
   }
 

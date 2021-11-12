@@ -1,5 +1,19 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { BarController, BarElement, CategoryScale, Chart, ChartConfiguration, ChartData, ChartItem, ChartOptions, LinearScale, LineController, LineElement, PointElement, ScatterController, Tooltip, TooltipItem } from 'chart.js';
+import {
+  BarController,
+  BarElement,
+  CategoryScale,
+  Chart,
+  ChartConfiguration,
+  ChartData,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
+  ScatterController,
+  Tooltip,
+  TooltipItem
+} from 'chart.js';
 import { Config, LRDatas } from 'src/app/_classes/config.class';
 
 Chart.register(CategoryScale, LinearScale, BarController, BarElement, LineController, LineElement, ScatterController, PointElement, Tooltip);
@@ -90,10 +104,10 @@ export class ChartComponent implements OnInit {
   }
 
   refreshHypothesis() {
-    if (this.config && this.chart) {
+    if (this.config && this.chart) {
       let linemin = Math.min(...this.config.datas.map(v => v.x))
       let linemax = Math.max(...this.config.datas.map(v => v.x))
-      this.thetas = this.thetas || [0, 0]
+      this.thetas = this.thetas || [0, 0]
       if (this.chart) {
         this.chart.data.datasets[1].data = [{
           x: linemin,

@@ -1,4 +1,4 @@
-<div class="drag-container" [ngClass]="{'light': !darkMode}">
+<div class="drag-container">
     <div class="drag-subcontainer" *ngIf="!value" (click)="inputCurrentFiles.click()" >
         <div class="upload-img" #dragAndDropContainer>
             <div class="upload-file" *ngIf="!imageIsLoading">

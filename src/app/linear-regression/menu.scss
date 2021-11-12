@@ -164,38 +164,6 @@
       border: 1px solid $primary-color;
       color: $primary-color;  
     }
-    &.light {
-        .menu-section {
-            .section-title {
-                &.main-title {
-                    background-color: #fafafa;
-                    border-color: rgba(0, 0, 0, 0.2);
-                }
-            }
-            .section-group {
-                .icons-container {
-                    .icon {
-                        &.selected {
-                            color: #fafafa;
-                            text-shadow: stroke(3, $light-primary-color);
-                        }
-                    }
-                }
-                .mat-slider-track-background {
-                    background-color: rgba(0, 0, 0, 0.26);
-                }
-                .text-zone {
-                    background-color: #fafafa;
-                    color: #303030;
-                }
-            }
-            &.borderful,
-            .separator,
-            .vertical-separator {
-                border-color: rgba(0, 0, 0, 0.2);
-            }
-        }
-    }
 }
 ::-webkit-scrollbar {
     width: 0;  /* Remove scrollbar space */

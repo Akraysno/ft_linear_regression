@@ -79,43 +79,4 @@
             bottom: 20px;
         }
     }
-    &.light {
-        .scroll-button {
-            background-color: #fafafa;
-        }
-        .import-file {
-            .data-table {
-                input {
-                    background-color: #cfcfcf;
-                    color: black;
-                    &:focus {
-                        border-color: $light-primary-color;
-                        caret-color: initial;
-                    }
-                }
-                .delete-icon {
-                    color: $light-primary-color;
-                }
-            }
-            .add-row-container {
-                .add-row {
-                    color: $light-primary-color;
-                }
-            }
-        }
-        .button-container {
-            background-color: white;
-            border-top: 1px solid $light-primary-color;
-            button {
-                background-color: white;
-                color: $primary-color;
-                border: 1px solid $primary-color;
-            }
-        }
-        .scroll-button {
-            background-color: white;
-            border-top: 1px solid $light-primary-color;
-            color: $light-primary-color;
-        }
-    }
 }

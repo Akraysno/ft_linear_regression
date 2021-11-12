@@ -1,22 +1,16 @@
-<div class="app-linear-regression" [ngClass]="{'light': currentTheme === themes.LIGHT}">
-    <mat-drawer-container class="lr-drawer-container">
-        <mat-drawer #startDrawer class="start-drawer" mode="side" position="start" [opened]="true">
+<div class="app-linear-regression">
+    <div class="lr-drawer-container">
+        <div class="side-container">
             <app-configuration (onConfigChange)="onConfigChange($event)"></app-configuration>
             <div class="neon-effet"></div>
             <div class="neon-center"></div>
-        </mat-drawer>
-
-        <mat-drawer-content>
-            <div class="lr-chart-container">
-                <app-chart [config]="config" [thetas]="thetas"></app-chart>
-            </div>
-            <i class="material-icons menu-icon settings" (click)="settingsDrawer.toggle()">settings</i>
-        </mat-drawer-content>
-
-        <mat-drawer #settingsDrawer class="settings-drawer" mode="over" position="end">
-            <div class="neon-effet"></div>
-            <div class="neon-center"></div>
-            <app-settings></app-settings>
-        </mat-drawer>
-    </mat-drawer-container>
+        </div>
+        <div class="language-container">
+            <div class="icon" [ngClass]="{'selected': currentLanguage === languages.fr}" (click)="updateLanguage(languages.fr)">🇫🇷</div>
+            <div class="icon" [ngClass]="{'selected': currentLanguage === languages.en}" (click)="updateLanguage(languages.en)">🇬🇧</div>
+        </div>
+        <div class="lr-chart-container">
+            <app-chart [config]="config" [thetas]="thetas"></app-chart>
+        </div>
+    </div>
 </div>

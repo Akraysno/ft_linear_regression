@@ -78,17 +78,5 @@
             }
         }
     }
-    &.light {
-        background-color: #f6f6f6;
-        border: 2px solid #e7e7e7;
-        color: $light-primary-color;
-        .drag-subcontainer {
-            .upload-img {
-                &.dragover {
-                    background-color: #eee;
-                }
-            }
-        }
-    }
 }
 

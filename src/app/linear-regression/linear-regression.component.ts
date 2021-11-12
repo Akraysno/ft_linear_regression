@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Config } from '../_classes/config.class';
 import { Trainer } from '../_classes/trainer.class';
-import { DEFAULT_THEME, Themes, ThemesService } from '../_services/themes.service';
 import * as _ from 'lodash'
+import { DEFAULT_LANGUAGE, Languages, TranslateService } from '../_services/translate.service';
 
 @Component({
   selector: 'app-linear-regression',
@@ -11,22 +11,23 @@ import * as _ from 'lodash'
   styleUrls: ['./linear-regression.component.scss']
 })
 export class LinearRegressionComponent implements OnInit {
-  currentTheme: Themes = DEFAULT_THEME
   config!: Config
   thetas: [number, number] = [0, 0]
+  currentLanguage: Languages = DEFAULT_LANGUAGE
+  languages = Languages
 
-  themes = Themes
-
-  theme$!: Subscription
+  language$!: Subscription | null
 
   constructor(
-    private themesService: ThemesService,
+    private translateService: TranslateService,
   ) { }
 
   ngOnInit(): void {
-    this.theme$ = this.themesService.theme.subscribe(t => {
-      this.currentTheme = t
-    })
+    this.language$ = this.translateService.language.subscribe(language => this.currentLanguage = language)
+  }
+
+  updateLanguage(language: Languages) {
+    this.translateService.setTranslations(language)
   }
 
   onConfigChange(config: Config) {
@@ -43,7 +44,7 @@ export class LinearRegressionComponent implements OnInit {
     let isTraining = true
     let interval = 100
     let costs = []
-    let learningRate = 0.1
+    let learningRate = 0.5
     let iteration: {
       current: number
     } = {
@@ -76,6 +77,13 @@ export class LinearRegressionComponent implements OnInit {
     }
 
     training()
+  }
+
+  ngOnDestroy() {
+    if (this.language$) {
+      this.language$.unsubscribe()
+      this.language$ = null
+    }
   }
 
 }
