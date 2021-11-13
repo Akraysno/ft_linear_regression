@@ -49,16 +49,15 @@ export class LinearRegressionComponent implements OnInit {
     this.currentIteration = 0
     let thetas: [number, number] = [0, 0]
     let interval = 100
-    let costs = []
     if (!this.learningRate) return alert("Invalid learning rate");
     let trainer = new Trainer(this.config.datas, this.learningRate, [0, 0])
 
     const training = () => {
       let tmpTheta = [1, 1];
       let thetaSum = [0, 0];
-      for (let d of trainer.data) {
-        thetaSum[0] += trainer.hypothesis(d.x) - d.y;
-        thetaSum[1] += (trainer.hypothesis(d.x) - d.y) * d.x;
+      for (let d of trainer.datas) {
+        thetaSum[0] += Trainer.hypothesis(trainer.thetas, d.x) - d.y;
+        thetaSum[1] += (Trainer.hypothesis(trainer.thetas, d.x) - d.y) * d.x;
       }
       tmpTheta[0] = (trainer.learningRate / trainer.M) * thetaSum[0];
       tmpTheta[1] = (trainer.learningRate / trainer.M) * thetaSum[1];
@@ -70,7 +69,6 @@ export class LinearRegressionComponent implements OnInit {
       if (this.trainingAnimation) {
         this.thetas = thetas
       }
-      costs.push(trainer.cost())
       if (this.currentIteration < this.nbIterations) {
         if (this.trainingAnimation) {
           setTimeout(() => training(), interval)

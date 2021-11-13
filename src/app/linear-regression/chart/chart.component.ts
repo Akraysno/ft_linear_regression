@@ -15,6 +15,7 @@ import {
   TooltipItem
 } from 'chart.js';
 import { Config, LRDatas } from 'src/app/_classes/config.class';
+import { Trainer } from 'src/app/_classes/trainer.class';
 
 Chart.register(CategoryScale, LinearScale, BarController, BarElement, LineController, LineElement, ScatterController, PointElement, Tooltip);
 Chart.defaults.color = "#90e5ff";
@@ -52,7 +53,6 @@ export class ChartComponent implements OnInit {
       if (configExists && this.chart) {
         this.refreshScatter()
       } else {
-        console.log('crreate')
         let chartDatas = this.createDatasets()
         this.createChart(chartDatas)
       }
@@ -103,7 +103,7 @@ export class ChartComponent implements OnInit {
         type: 'scatter',
         data: this.prediction || this.prediction === 0 ? [{
           x: this.prediction,
-          y: this.thetas[1] * this.prediction + this.thetas[0]
+          y: Trainer.hypothesis(this.thetas, this.prediction)
         }] : [],
         pointStyle: 'circle',
         pointBorderWidth: 1,
@@ -146,10 +146,10 @@ export class ChartComponent implements OnInit {
         let linemax = Math.max(...this.config.datas.map(v => v.x))
         this.chart.data.datasets[2].data = [{
           x: linemin,
-          y: this.thetas[1] * linemin + this.thetas[0]
+          y: Trainer.hypothesis(this.thetas, linemin)
         }, {
           x: linemax,
-          y: this.thetas[1] * linemax + this.thetas[0]
+          y: Trainer.hypothesis(this.thetas, linemax)
         }]
       } else {
         this.chart.data.datasets[2].data = []
@@ -163,7 +163,7 @@ export class ChartComponent implements OnInit {
       if (this.prediction || this.prediction === 0) {
         this.chart.data.datasets[1].data = [{
           x: this.prediction,
-          y: this.thetas[1] * this.prediction + this.thetas[0]
+          y: Trainer.hypothesis(this.thetas, this.prediction)
         }]
       } else {
         this.chart.data.datasets[1].data = []

@@ -2,7 +2,7 @@ import { LRDatas } from "./config.class"
 import * as _ from 'lodash'
 
 export class Trainer {
-    public data: LRDatas[]
+    public datas: LRDatas[]
     public learningRate: number
     public thetas: [number, number]
     public scale!: number
@@ -13,32 +13,24 @@ export class Trainer {
         learningRate: number = 0.5,
         thetas: [number, number] = [0, 0]
     ) {
-        this.data = _.cloneDeep(data)
-        this.M = this.data.length;
+        this.datas = _.cloneDeep(data)
+        this.M = this.datas.length;
         this.learningRate = learningRate
         this.thetas = thetas
-        this.normalize()
+        this._normalizeDatas()
     }
 
-    normalize() {
-        const dataX = this.data.map(v => v.x);
-        const [min, max] = [Math.min(...dataX), Math.max(...dataX)];
-        this.scale = max - min;
-        this.data.forEach(v => { v.x = (v.x - min) / this.scale });
+    private _normalizeDatas() {
+        const dataX = this.datas.map(v => v.x)
+        const min = Math.min(...dataX)
+        const max = Math.max(...dataX)
+        this.scale = max - min
+        for (let v of this.datas) {
+            v.x = (v.x - min) / this.scale
+        }
     }
 
-    public hypothesis(km: number) {
-        return this.thetas[0] + this.thetas[1] * km;
-    }
-
-    public cost() {
-        return this.squaredError() / (2 * this.M);
-    }
-
-    public squaredError() {
-        return this.data.reduce(
-            (sum, d) => sum + (this.hypothesis(d.x) - d.y) ** 2,
-            0,
-        );
+    static hypothesis(thetas: [number, number], x: number) {
+        return thetas[1] * x + thetas[0];
     }
 }
