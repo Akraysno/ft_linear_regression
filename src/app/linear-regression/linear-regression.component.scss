@@ -14,29 +14,6 @@
         color: #fafafa;
         display: flex;
         flex-direction: row;
-        .language-container {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            z-index: 999;
-            .icon {
-                cursor: pointer;
-                font-size: 30px;
-                margin-left: 15px;
-                &.selected {
-                    color: #303030;
-                    text-shadow: stroke(3, $primary-color);
-                }
-            }
-        }
-        .toggle-animation {
-            position: absolute;
-            top: 15px;
-            left: 25px;
-        }
         .side-container {
             min-width: 300px;
             max-width: 300px;
@@ -102,6 +79,31 @@
                 }
             }
         }
+        .lr-top-container {
+            width: calc(100% - 30px);
+            height: fit-content;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 20px;
+            .toggle-animation {
+                margin-left: 10px;
+            }
+            .language-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .icon {
+                    cursor: pointer;
+                    font-size: 30px;
+                    margin-left: 15px;
+                    &.selected {
+                        color: #303030;
+                        text-shadow: stroke(3, $primary-color);
+                    }
+                }
+            }
+        }
         .lr-bottom-container {
             height: 200px;
             border-top: 2px solid #5ab4d0;
@@ -110,6 +112,7 @@
             display: flex;
             flex-direction: row;
             padding-left: 10px;
+            margin-top: 20px;
             .laser-progress {
                 background: #5ab4d0;
                 height: 1px;

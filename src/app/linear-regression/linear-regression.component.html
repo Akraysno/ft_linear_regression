@@ -7,13 +7,15 @@
             <div class="neon-effet"></div>
             <div class="neon-center"></div>
         </div>
-        <div class="language-container">
-            <div class="icon" [ngClass]="{'selected': currentLanguage === languages.fr}" (click)="updateLanguage(languages.fr)">🇫🇷</div>
-            <div class="icon" [ngClass]="{'selected': currentLanguage === languages.en}" (click)="updateLanguage(languages.en)">🇬🇧</div>
-        </div>
         <div class="lr-content-container">
-            <div class="toggle-animation">
-                <mat-slide-toggle color="primary" [(ngModel)]="trainingAnimation" [disabled]="isTraining"> {{ 'linearRegression.trainingAnimation' | translate }} </mat-slide-toggle>
+            <div class="lr-top-container">
+                <div class="toggle-animation">
+                    <mat-slide-toggle color="primary" [(ngModel)]="trainingAnimation" [disabled]="isTraining"> {{ 'linearRegression.trainingAnimation' | translate }} </mat-slide-toggle>
+                </div>
+                <div class="language-container">
+                    <div class="icon" [ngClass]="{'selected': currentLanguage === languages.fr}" (click)="updateLanguage(languages.fr)">🇫🇷</div>
+                    <div class="icon" [ngClass]="{'selected': currentLanguage === languages.en}" (click)="updateLanguage(languages.en)">🇬🇧</div>
+                </div>
             </div>
             <div class="lr-chart-container">
                 <app-chart [config]="config" [thetas]="thetas" [prediction]="prediction"></app-chart>

@@ -2,11 +2,10 @@
   "name": "linear-regression",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng": "./node_modules/@angular/cli/bin/ng",
+    "start": "./node_modules/@angular/cli/bin/ng serve",
+    "open": "./node_modules/@angular/cli/bin/ng serve --open",
+    "build": "./node_modules/@angular/cli/bin/ng build"
   },
   "private": true,
   "dependencies": {
