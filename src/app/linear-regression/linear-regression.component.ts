@@ -4,6 +4,7 @@ import { Config } from '../_classes/config.class';
 import { Trainer } from '../_classes/trainer.class';
 import * as _ from 'lodash'
 import { DEFAULT_LANGUAGE, Languages, TranslateService } from '../_services/translate.service';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-linear-regression',
@@ -82,6 +83,11 @@ export class LinearRegressionComponent implements OnInit {
     }
 
     training()
+  }
+
+  showTooltip(elem: MatTooltip) {
+    elem.show()
+    setTimeout(() => elem.hide(), 1000)
   }
 
   ngOnDestroy() {

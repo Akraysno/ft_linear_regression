@@ -5,7 +5,9 @@
         },
         "delete": "Supprimer",
         "validate": "Valider",
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "copyValue": "Copier la valeur",
+        "copied": "Copié"
     },
     "components": {
         "dragAndDrop": {

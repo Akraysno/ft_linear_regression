@@ -134,6 +134,7 @@
                 padding: 20px 0% 10px;
                 border-left: 2px solid #989889;
                 overflow: hidden;
+                position: relative;
                 .elem-container {
                     width: 80%;
                     padding: 0 10%;
@@ -171,8 +172,14 @@
                     margin: 0 auto;
                     line-height: 30px;
                     width: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     &.important {
                         font-size: 17px;
+                    }
+                    .theta-value {
+                        cursor: pointer;
                     }
                 }
                 .elem-input {
@@ -196,6 +203,13 @@
                             caret-color: $primary-color;
                         }
                     }
+                }
+                .copied-tooltip {
+                    position: absolute;
+                    bottom: -14px;
+                    width: 1px;
+                    height: 1px;
+                    right: 0;
                 }
                 .button-container {
                     margin: auto;

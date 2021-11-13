@@ -7,6 +7,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     exports: [
@@ -17,7 +19,9 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatSidenavModule,
         MatProgressSpinnerModule,
         MatInputModule,
-        MatDialogModule
+        MatDialogModule,
+        ClipboardModule,
+        MatTooltipModule,
     ]
 })
 export class MaterialModule { }

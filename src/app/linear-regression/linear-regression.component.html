@@ -29,8 +29,34 @@
                         <div class="elem-title">{{ 'linearRegression.bottom.hypothesis' | translate }}</div>
                         <div class="elem-separator"></div>
                         <div class="elem-text important">y = θ₁ * x + θ₀</div>
-                        <div class="elem-text">θ₀ = {{thetas[0]}}</div>
-                        <div class="elem-text">θ₁ = {{thetas[1]}}</div>
+                        <div
+                            class="copied-tooltip"
+                            #copiedValue="matTooltip"
+                            matTooltip="{{ 'global.copied' | translate }}"
+                            matTooltipPosition="left"
+                        ></div>
+                        <div class="elem-text">
+                            θ₀ = 
+                            <span
+                                class="theta-value"
+                                title="{{ 'global.copyValue' | translate }}"
+                                [cdkCopyToClipboard]="thetas[0].toString()"
+                                (cdkCopyToClipboardCopied)="showTooltip(copiedValue)"
+                            >
+                                {{thetas[0]}}
+                            </span>
+                        </div>
+                        <div class="elem-text">
+                            θ₁ = 
+                            <span
+                                class="theta-value"
+                                title="{{ 'global.copyValue' | translate }}"
+                                [cdkCopyToClipboard]="thetas[1].toString()"
+                                (cdkCopyToClipboardCopied)="showTooltip(copiedValue)"
+                            >
+                                {{thetas[1]}}
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="element">
