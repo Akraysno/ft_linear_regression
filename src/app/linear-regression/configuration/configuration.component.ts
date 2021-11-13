@@ -15,7 +15,6 @@ import { TranslateService } from 'src/app/_services/translate.service';
 })
 export class ConfigurationComponent implements OnInit {
   @Input() loading: boolean = false
-  @Output() train: EventEmitter<any> = new EventEmitter()
   @Output() onConfigChange: EventEmitter<Config> = new EventEmitter()
   @ViewChild('configContainer') configContainer!: ElementRef
   dataHeader!: RowHeaderData | undefined
@@ -98,6 +97,7 @@ export class ConfigurationComponent implements OnInit {
       this.hasErrors = false
       this.dataHeader = undefined
       this.dataList = []
+      this.lastDatas = ''
       this.onConfigChange.emit()
     }
   }
@@ -122,10 +122,6 @@ export class ConfigurationComponent implements OnInit {
     this.checkErrors()
   }
 
-  onTrainClicked() {
-    this.train.emit()
-  }
-
   valueUpdate() {
     this.checkErrors()
     this.validate()
@@ -134,7 +130,7 @@ export class ConfigurationComponent implements OnInit {
   validate() {
     if (this.dataHeader && this.dataHeader.isValid() === true) {
       let filteredData = this.dataList.filter(d => d.isValid())
-      let filteredDataStr = JSON.stringify(filteredData)
+      let filteredDataStr = JSON.stringify([this.dataHeader, ...filteredData])
       if (this.lastDatas !== filteredDataStr) {
         this.lastDatas = filteredDataStr
         this.onConfigChange.emit({

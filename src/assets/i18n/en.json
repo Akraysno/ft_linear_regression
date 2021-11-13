@@ -23,8 +23,17 @@
             "title": "Linear Regression",
             "fileHeaderMissing": "File need 2 columns with name",
             "hasErrors": "Lines circled in red have errors and will be ignored in the result.",
-            "train": "Train"
+            "dlFileExample": "Download example file"
         },
-        "noChart": "The graph will arrive as soon as the data is available!"
+        "noChart": "The graph will arrive as soon as the data is available!",
+        "trainingAnimation": "Training animation",
+        "train": "Start training",
+        "bottom": {
+            "hypothesis": "Hypothesis",
+            "settings": "Settings",
+            "prediction": "Prediction",
+            "learningRate": "Learning rate",
+            "depth": "Depth"
+        }
     }
 }

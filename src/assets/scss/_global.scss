@@ -7,6 +7,17 @@ body{
 * {
   font-family: $font-family !important;
 }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number],
+input[type=date] {
+    -moz-appearance:textfield;
+}
 *:focus {
   outline:0;
 }
@@ -172,4 +183,18 @@ app-ngx-editor {
   direction: ltr;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+.mat-slide-toggle {
+  width: 100%;
+  .mat-slide-toggle-label {
+      justify-content: space-between;
+      align-items: center;
+  }
+}
+.mat-slider-track-background {
+  background-color: rgba(255, 255, 255, 0.26);
+}
+.mat-slider-thumb,
+.mat-slider-thumb-label {
+  background-color: #d4d4d4 !important;
 }

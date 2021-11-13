@@ -12,8 +12,75 @@
             <div class="icon" [ngClass]="{'selected': currentLanguage === languages.en}" (click)="updateLanguage(languages.en)">🇬🇧</div>
         </div>
         <div class="lr-content-container">
-            <app-chart [config]="config" [thetas]="thetas"></app-chart>
-            <div class="no-chart" *ngIf="!config"><p>{{ 'linearRegression.noChart' | translate }}</p></div>
+            <div class="toggle-animation">
+                <mat-slide-toggle color="primary" [(ngModel)]="trainingAnimation" [disabled]="isTraining"> {{ 'linearRegression.trainingAnimation' | translate }} </mat-slide-toggle>
+            </div>
+            <div class="lr-chart-container">
+                <app-chart [config]="config" [thetas]="thetas" [prediction]="prediction"></app-chart>
+                <div class="no-chart" *ngIf="!config"><p>{{ 'linearRegression.noChart' | translate }}</p></div>
+            </div>
+            <div class="lr-bottom-container">
+                <div class="laser-progress" [style.width]="((currentIteration / nbIterations) * 100) + '%'"></div>
+                <div class="counter" *ngIf="currentIteration">{{currentIteration}} / {{nbIterations}}</div>
+                <div class="element no-border">
+                    <div class="elem-container">
+                        <div class="elem-title">{{ 'linearRegression.bottom.hypothesis' | translate }}</div>
+                        <div class="elem-separator"></div>
+                        <div class="elem-text important">y = θ₁ * x + θ₀</div>
+                        <div class="elem-text">θ₀ = {{thetas[0]}}</div>
+                        <div class="elem-text">θ₁ = {{thetas[1]}}</div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="elem-container">
+                        <div class="elem-title">{{ 'linearRegression.bottom.prediction' | translate }}</div>
+                        <div class="elem-separator"></div>
+                        <div class="elem-input">{{ config && config.header ? config.header.x : 'x'}} = <input matInput [(ngModel)]="prediction" type="number"></div>
+                        <div class="elem-text">{{ config && config.header ? config.header.y : 'y'}} = {{ prediction || prediction === 0 ?  thetas[1] * prediction + thetas[0] : '' }} </div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="elem-container">
+                        <div class="elem-title">{{ 'linearRegression.bottom.settings' | translate }}</div>
+                        <div class="elem-separator"></div>
+                        <div class="elem-sub-title">{{ 'linearRegression.bottom.learningRate' | translate }}</div>
+                        <div class="slider-container">
+                            <mat-slider
+                                max="1"
+                                min="0.1"
+                                step="0.1"
+                                autoTicks="true"
+                                color="primary"
+                                thumbLabel="true"
+                                [(ngModel)]="learningRate"
+                                [disabled]="isTraining"
+                            ></mat-slider>
+                            <span class="slider-value"> {{ learningRate }} </span>
+                        </div>
+                        <div class="elem-sub-title">{{ 'linearRegression.bottom.depth' | translate }}</div>
+                        <div class="slider-container">
+                            <mat-slider
+                                max="2000"
+                                min="100"
+                                step="100"
+                                autoTicks="true"
+                                color="primary"
+                                thumbLabel="true"
+                                [(ngModel)]="nbIterations"
+                                [disabled]="isTraining"
+                            ></mat-slider>
+                            <span class="slider-value"> {{ nbIterations }} </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="element">
+                    <div class="elem-container">
+                        <div class="button-container">
+                            <app-button (onClick)="train()" [disabled]="isTraining" [loading]="isTraining" label="{{ 'linearRegression.train' | translate }}"></app-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

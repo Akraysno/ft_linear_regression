@@ -4,7 +4,10 @@
     .import-file {
         width: 97%;
         margin-bottom: 20px;
-        .error-message {
+        .ignore-message {
+            font-size: 12px;
+            font-style: italic;
+            color: grey;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -48,21 +51,15 @@
                 cursor: pointer;
             }
         }
-    }
-    .button-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        position: sticky;
-        bottom: 0;
-        background-color: #303030;
-        border-top: 1px solid $primary-color;
-        button {
-            background-color: #484848;
-            color: $primary-color;
-            width: 170px;
-            border: 1px solid $primary-color;
+        .file-example {
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            .material-icons {
+                margin-right: 10px;
+            }
         }
     }
     .scroll-button {

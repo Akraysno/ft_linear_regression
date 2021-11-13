@@ -8,9 +8,10 @@
             (onChange)="fileChange($event)"
             [disableDelete]="loading"
         ></app-drag-and-drop>
+        <a class="file-example" href="assets/datas/data.csv" download><i class="material-icons">file_download</i>{{ 'linearRegression.config.dlFileExample' | translate }}</a>
         <ng-container *ngIf="dataHeader && dataList.length">
             <div class="separator"></div>
-            <div *ngIf="hasErrors" class="error-message">{{ 'linearRegression.config.hasErrors' | translate }}</div>
+            <div class="ignore-message">{{ 'linearRegression.config.hasErrors' | translate }}</div>
             <table class="data-table">
                 <tr [ngClass]="{'error': dataHeader.isValid() === false}">
                     <th><input matInput class="center" [disabled]="loading" (keyup)="valueUpdate()" (change)="valueUpdate()" [(ngModel)]="dataHeader.data1"></th>
@@ -27,8 +28,5 @@
                 <i class="material-icons add-row" (click)="addRow()"> add_circle_outline </i>
             </div>
         </ng-container>
-    </section>
-    <section class="button-container">
-        <app-button (onClick)="onTrainClicked()" [disabled]="dataHeader?.isValid() === false" [loading]="loading" label="{{ 'linearRegression.config.train' | translate }}"></app-button>
     </section>
 </div>

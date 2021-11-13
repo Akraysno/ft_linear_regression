@@ -31,8 +31,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/scss/_config.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/scss/_config.scss"
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Config } from '../_classes/config.class';
 import { Trainer } from '../_classes/trainer.class';
@@ -8,7 +8,8 @@ import { DEFAULT_LANGUAGE, Languages, TranslateService } from '../_services/tran
 @Component({
   selector: 'app-linear-regression',
   templateUrl: './linear-regression.component.html',
-  styleUrls: ['./linear-regression.component.scss']
+  styleUrls: ['./linear-regression.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class LinearRegressionComponent implements OnInit {
   config!: Config
@@ -16,6 +17,11 @@ export class LinearRegressionComponent implements OnInit {
   currentLanguage: Languages = DEFAULT_LANGUAGE
   languages = Languages
   isTraining: boolean = false
+  trainingAnimation: boolean = true
+  nbIterations: number = 500
+  currentIteration: number = 0
+  learningRate: number = 0.5
+  prediction!: number
 
   language$!: Subscription | null
 
@@ -33,22 +39,19 @@ export class LinearRegressionComponent implements OnInit {
 
   onConfigChange(config: Config) {
     this.thetas = [0, 0]
+    this.currentIteration = 0
     this.config = config
   }
 
   train() {
+    if (!this.config || !this.config.datas || !this.config.datas.length) return
     this.isTraining = true
+    this.currentIteration = 0
     let thetas: [number, number] = [0, 0]
     let interval = 100
     let costs = []
-    let learningRate = 0.5
-    let iteration: {
-      current: number
-    } = {
-      current: 0
-    }
-    if (!learningRate) return alert("Invalid learning rate");
-    let trainer = new Trainer(_.cloneDeep(this.config.datas), learningRate, [0, 0])
+    if (!this.learningRate) return alert("Invalid learning rate");
+    let trainer = new Trainer(this.config.datas, this.learningRate, [0, 0])
 
     const training = () => {
       let tmpTheta = [1, 1];
@@ -61,13 +64,19 @@ export class LinearRegressionComponent implements OnInit {
       tmpTheta[1] = (trainer.learningRate / trainer.M) * thetaSum[1];
       trainer.thetas[0] -= tmpTheta[0];
       trainer.thetas[1] -= tmpTheta[1];
-      iteration.current += 1;
+      this.currentIteration += 1;
 
       thetas = [trainer.thetas[0], trainer.thetas[1] / trainer.scale]
-      this.thetas = thetas
+      if (this.trainingAnimation) {
+        this.thetas = thetas
+      }
       costs.push(trainer.cost())
-      if (iteration.current < 200) {
-        setTimeout(() => training(), interval)
+      if (this.currentIteration < this.nbIterations) {
+        if (this.trainingAnimation) {
+          setTimeout(() => training(), interval)
+        } else {
+          training()
+        }
       } else {
         this.thetas = thetas
         this.isTraining = false;

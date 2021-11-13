@@ -43,17 +43,16 @@ tooltipPlugin.positioners.verticallyCenter = (elements: any, position: any) => {
 export class ChartComponent implements OnInit {
   @ViewChild('chartRef') chartRef!: ElementRef;
   @Input('config') set setData(config: Config) {
-    if (!config) {
-      if (this.chart) {
-        this.chart.destroy();
-      }
-    } else {
+    if (!config && this.chart) {
+      this.chart.destroy()
+      this.chart = undefined
+    } else if (config) {
       let configExists = !!this.config
       this.config = config
       if (configExists && this.chart) {
         this.refreshScatter()
       } else {
-        this.config = config
+        console.log('crreate')
         let chartDatas = this.createDatasets()
         this.createChart(chartDatas)
       }
@@ -62,11 +61,17 @@ export class ChartComponent implements OnInit {
   @Input('thetas') set setThetas(thetas: [number, number]) {
     this.thetas = thetas
     this.refreshHypothesis()
+    this.refreshPrediction()
+  }
+  @Input('prediction') set setPrediction(prediction: number) {
+    this.prediction = prediction
+    this.refreshPrediction()
   }
   config!: Config
   datas!: ChartData
-  chart!: Chart
+  chart!: Chart | undefined
   thetas: [number, number] = [0, 0]
+  prediction!: number
 
   constructor() { }
 
@@ -95,6 +100,16 @@ export class ChartComponent implements OnInit {
         pointBorderColor: "#90e5ff",
         pointBorderWidth: 1,
       }, {
+        type: 'scatter',
+        data: this.prediction || this.prediction === 0 ? [{
+          x: this.prediction,
+          y: this.thetas[1] * this.prediction + this.thetas[0]
+        }] : [],
+        pointStyle: 'circle',
+        pointBorderWidth: 1,
+        backgroundColor: '#11df19',
+        borderColor: '#11df19',
+      }, {
         type: 'line',
         data: [{
           x: linemin,
@@ -110,33 +125,82 @@ export class ChartComponent implements OnInit {
   }
 
   refreshScatter() {
-    if (this.config && this.chart) {
-      if (this.chart) {
-        this.chart.data.datasets[0].data = this.config.datas.map((v: LRDatas, i: number) => {
-          return {
-            x: v.x,
-            y: v.y,
-          }
-        })
-        this.chart.update()
-      }
+    if (this.chart) {
+      let datas = this.config ? this.config.datas || [] : []
+      this.chart.data.datasets[0].data = datas.map((v: LRDatas, i: number) => {
+        return {
+          x: v.x,
+          y: v.y,
+        }
+      })
+      this.chart.options.scales = this.createChartAxis()
+      this.chart.update()
     }
   }
 
   refreshHypothesis() {
-    if (this.config && this.chart) {
-      let linemin = Math.min(...this.config.datas.map(v => v.x))
-      let linemax = Math.max(...this.config.datas.map(v => v.x))
+    if (this.chart) {
       this.thetas = this.thetas || [0, 0]
-      if (this.chart) {
-        this.chart.data.datasets[1].data = [{
+      if (this.config) {
+        let linemin = Math.min(...this.config.datas.map(v => v.x))
+        let linemax = Math.max(...this.config.datas.map(v => v.x))
+        this.chart.data.datasets[2].data = [{
           x: linemin,
-          y: this.thetas[0]
+          y: this.thetas[1] * linemin + this.thetas[0]
         }, {
           x: linemax,
           y: this.thetas[1] * linemax + this.thetas[0]
         }]
-        this.chart.update()
+      } else {
+        this.chart.data.datasets[2].data = []
+      }
+      this.chart.update()
+    }
+  }
+
+  refreshPrediction() {
+    if (this.chart) {
+      if (this.prediction || this.prediction === 0) {
+        this.chart.data.datasets[1].data = [{
+          x: this.prediction,
+          y: this.thetas[1] * this.prediction + this.thetas[0]
+        }]
+      } else {
+        this.chart.data.datasets[1].data = []
+      }
+      this.chart.update()
+    }
+  }
+
+  private createChartAxis() {
+    return {
+      x: {
+        title: {
+          text: this.config.header.x,
+          display: true,
+          color: '#FFF',
+          font: {
+            size: 18,
+            family: 'Comfortaa_Regular',
+          },
+        },
+        grid: {
+          color: '#909090'
+        }
+      },
+      y: {
+        title: {
+          text: this.config.header.y,
+          display: true,
+          color: '#FFF',
+          font: {
+            size: 18,
+            family: 'Comfortaa_Regular',
+          },
+        },
+        grid: {
+          color: '#909090',
+        }
       }
     }
   }
@@ -155,36 +219,7 @@ export class ChartComponent implements OnInit {
       data: chartData,
       options: {
         color: '#909090',
-        scales: {
-          x: {
-            title: {
-              text: this.config.header.x,
-              display: true,
-              color: '#FFF',
-              font: {
-                size: 18,
-                family: 'Comfortaa_Regular',
-              },
-            },
-            grid: {
-              color: '#909090'
-            }
-          },
-          y: {
-            title: {
-              text: this.config.header.y,
-              display: true,
-              color: '#FFF',
-              font: {
-                size: 18,
-                family: 'Comfortaa_Regular',
-              },
-            },
-            grid: {
-              color: '#909090',
-            }
-          }
-        },
+        scales: this.createChartAxis(),
         plugins: {
           tooltip: {
             displayColors: false,

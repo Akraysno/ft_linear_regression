@@ -3,7 +3,7 @@
 @import "common";
 
 @import '~@angular/material/theming';
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; 
 
 @import "./akraysno-theme.scss";
 $akraysno-app-primary: mat-palette($akraysno-primary);

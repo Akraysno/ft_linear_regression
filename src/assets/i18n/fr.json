@@ -23,8 +23,17 @@
             "title": "Linear Regression",
             "fileHeaderMissing": "Le fichier doit avoir 2 colonnes avec un nom",
             "hasErrors": "Les lignes entourées en rouges ont des erreurs et seront ignorées dans le résultat.",
-            "train": "Entrainer"
+            "dlFileExample": "Télécharger fichier d'exemple"
         },
-        "noChart": "Le graphique arrivera dès que les données seront disponibles !"
+        "noChart": "Le graphique arrivera dès que les données seront disponibles !",
+        "trainingAnimation": "Animation d'entrainement",
+        "train": "Démarrer l'entrainement",
+        "bottom": {
+            "hypothesis": "Hypothèse",
+            "settings": "Réglages",
+            "prediction": "Prédiction",
+            "learningRate": "Taux d'apprentissage",
+            "depth": "Profondeur"
+        }
     }
 }
