@@ -1,27 +1,27 @@
 # LinearRegression
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+Projet fait dans le cadre du cursus de l'[école 42](https://www.42.fr/).
 
-## Development server
+Projet disponible sur cette [page](https://akraysno.github.io/ft_linear_regression/).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Objectif
 
-## Code scaffolding
+La but de ce projet est d'mplémentez un algorithme de regression linéaire sur un seul element.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Preview
 
-## Build
+- Encore aucune données importées
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+![Image de la page sans données](https://github.com/Akraysno/ft_linear_regression/blob/master/resources/preview-1.png)
 
-## Running unit tests
+- Données importées et graphique initialisé
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+![Image des données importées](https://github.com/Akraysno/ft_linear_regression/blob/master/resources/preview-2.png)
 
-## Running end-to-end tests
+- Entrainement terminé
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+![Image de l'entrainement terminé](https://github.com/Akraysno/ft_linear_regression/blob/master/resources/preview-3.png)
 
-## Further help
+- Entrainement terminé avec prédiction
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![Image de l'entrainement terminé avec prédiction](https://github.com/Akraysno/ft_linear_regression/blob/master/resources/preview-4.png)

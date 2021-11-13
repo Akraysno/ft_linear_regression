@@ -180,7 +180,18 @@
                     white-space: nowrap;
                     input {
                         margin-left: 20px;
+                        background-color: #4c4c4c;
+                        border: 1px solid transparent;
+                        color: white;
                         width: 100%;
+                        letter-spacing: 1px;
+                        &.center { text-align: center; }
+                        &.right { text-align: right; }
+                        &.left { text-align: left; }
+                        &:focus {
+                            border-color: $primary-color;
+                            caret-color: $primary-color;
+                        }
                     }
                 }
                 .button-container {
