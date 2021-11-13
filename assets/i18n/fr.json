@@ -1,0 +1,39 @@
+{
+    "global": {
+        "unit": {
+            "byte": "o"
+        },
+        "delete": "Supprimer",
+        "validate": "Valider",
+        "cancel": "Annuler"
+    },
+    "components": {
+        "dragAndDrop": {
+            "addFile": "Ajouter un fichier",
+            "deleteTitle": "Supprimer le fichier",
+            "deleteMessage": "Êtes-vous sur de vouloir supprimer le fichier ?",
+            "deleteWarningMessage": "La suppression du fichier entrainera la suppression des données liées."
+        }
+    },
+    "linearRegression": {
+        "settings": {
+            "title": "Paramètres"
+        },
+        "config": {
+            "title": "Linear Regression",
+            "fileHeaderMissing": "Le fichier doit avoir 2 colonnes avec un nom",
+            "hasErrors": "Les lignes entourées en rouges ont des erreurs et seront ignorées dans le résultat.",
+            "dlFileExample": "Télécharger fichier d'exemple"
+        },
+        "noChart": "Le graphique arrivera dès que les données seront disponibles !",
+        "trainingAnimation": "Animation d'entrainement",
+        "train": "Démarrer l'entrainement",
+        "bottom": {
+            "hypothesis": "Hypothèse",
+            "settings": "Réglages",
+            "prediction": "Prédiction",
+            "learningRate": "Taux d'apprentissage",
+            "depth": "Profondeur"
+        }
+    }
+}
